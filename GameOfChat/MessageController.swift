@@ -106,7 +106,7 @@ class MessageController: UITableViewController {
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 
                 let message = Message(dictionay: dictionary)
-
+                
                 //self.messages.append(message)
                 
                 if let chatPartnerId = message.chatPartnerId(){
@@ -131,7 +131,7 @@ class MessageController: UITableViewController {
         
     }
     
-    func handleReloadTable() {
+    @objc func handleReloadTable() {
         
         self.messages = Array(self.messagesDictionary.values)
         self.messages.sort(by: { (message1, message2) -> Bool in
@@ -190,7 +190,7 @@ class MessageController: UITableViewController {
         }, withCancel: nil)
     }
     
-    func handleNewMessage () {
+    @objc func handleNewMessage () {
         
         let newMessageController = NewMessageController()
         newMessageController.messageController = self
@@ -287,7 +287,7 @@ class MessageController: UITableViewController {
         navigationController?.pushViewController(chatLogController, animated: true)
     }
     
-    func handleLogout() {
+    @objc func handleLogout() {
         
         do {
             try Auth.auth().signOut()

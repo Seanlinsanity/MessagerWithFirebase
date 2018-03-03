@@ -21,7 +21,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         didSet{
             navigationItem.title = user?.name
-            
             observeMessages()
         }
         
@@ -44,23 +43,24 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 guard let dictionary = snapshot.value as? [String: AnyObject] else{
                     return
                 }
-                
                 let message = Message(dictionay: dictionary)
-                self.messages.append(message)
+//                maybe crash using append function here
+//                self.messages.append(message)
                 
                     DispatchQueue.main.async {
+                        self.messages.append(message)
                         self.collectionView?.reloadData()
-                        
                         //scroll to the last index
-                        let indexPath = NSIndexPath(item: self.messages.count - 1, section: 0)
-                        self.collectionView?.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
+                        if self.messages.count > 0{
+                            let indexPath = NSIndexPath(item: self.messages.count - 1, section: 0)
+                            self.collectionView?.scrollToItem(at: indexPath as IndexPath, at: .bottom, animated: true)
+                        }
                     }
                 
             }, withCancel: nil)
         
         }, withCancel: nil)
     }
-    
     
     let cellId = "cellId"
     
@@ -85,7 +85,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
     }()
     
-    func handleUploadTap() {
+    @objc func handleUploadTap() {
         let imagePickerController = UIImagePickerController()
         
         imagePickerController.delegate = self
@@ -132,13 +132,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                         
                         self.sendMessageWithProperties(properties: properties)
                     })
-                    
-                    
                 }
-                
             }
-            
-            
         })
         
         uploadTask.observe(.progress) { (snapshot) in
@@ -246,7 +241,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
 //        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func handleKeyboardDidShow() {
+    @objc func handleKeyboardDidShow() {
         if messages.count > 0 {
         let indexPath = NSIndexPath(item: messages.count - 1, section: 0)
         collectionView?.scrollToItem(at: indexPath as IndexPath, at: .top, animated: true)
@@ -363,13 +358,13 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 16)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16)], context: nil)
         
     }
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
-    func handleSend() {
+    @objc func handleSend() {
         
         let properties = ["text": inputContainerView.inputTextField.text!] as [String : AnyObject]
         
@@ -492,7 +487,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
 //        }
 //    }
     
-    func handleZoomOut() {
+    @objc func handleZoomOut() {
         let zoomOutImageView = self.zoomingImageView
         
         zoomOutImageView?.layer.cornerRadius = 16

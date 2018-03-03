@@ -36,7 +36,7 @@ class LoginController: UIViewController {
         
     }()
     
-    func handleLoginRegister() {
+    @objc func handleLoginRegister() {
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
         }else{
@@ -137,7 +137,7 @@ class LoginController: UIViewController {
         return sc
     }()
     
-    func handleLoginRegisterChange() {
+    @objc func handleLoginRegisterChange() {
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: UIControlState())
         

@@ -28,18 +28,18 @@ class Message: NSObject {
     
     init(dictionay: [String: AnyObject]) {
         super.init()
-        
+
         fromId = dictionay["fromId"] as? String
         text = dictionay["text"] as? String
         toId = dictionay["toId"] as? String
         imageUrl = dictionay["imageUrl"] as? String
         videoUrl = dictionay["videoUrl"] as? String
-        
+
         timeStamp = dictionay["timeStamp"] as? NSNumber
         imageWidth = dictionay["imageWidth"] as? NSNumber
         imageHeight = dictionay["imageHeight"] as? NSNumber
-        
-        
+
+
     }
     
 }

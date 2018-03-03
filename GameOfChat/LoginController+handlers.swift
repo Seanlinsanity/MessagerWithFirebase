@@ -87,7 +87,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     }
     
     
-    func handleSelectProfileImage() {
+    @objc func handleSelectProfileImage() {
         
         let picker = UIImagePickerController()
         

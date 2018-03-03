@@ -6,12 +6,12 @@
 //  Copyright © 2017年 SEAN. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class UserInfo: NSObject {
     
-    var name: String?
-    var email: String?
-    var profileImageUrl: String?
-    var id: String?
+    @objc var name: String?
+    @objc var email: String?
+    @objc var profileImageUrl: String?
+    @objc var id: String?
 }

@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = UINavigationController(rootViewController: MessageController())
         
-        
-        
         return true
     }
 
